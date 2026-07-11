@@ -1,0 +1,80 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+<BaseLayout title="Kontak" description="Kontak dan alamat Dusun Macanan, Bligo, Magelang." activeNav="kontak">
+
+  <section id="contact" class="contact section">
+    <div class="container section-title" data-aos="fade-up">
+      <h2>Kontak</h2>
+      <p><span>Hubungi</span> <span class="description-title">Dusun Macanan</span></p>
+    </div>
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="row gy-4">
+        <div class="col-lg-5">
+          <div class="info-wrap">
+            <div class="info-item d-flex">
+              <i class="bi bi-geo-alt flex-shrink-0"></i>
+              <div>
+                <h3>Alamat</h3>
+                <p id="kontak-alamat">Memuat...</p>
+              </div>
+            </div>
+            <div class="info-item d-flex">
+              <i class="bi bi-envelope flex-shrink-0"></i>
+              <div>
+                <h3>Email</h3>
+                <p>dusunmacanan@example.com</p>
+              </div>
+            </div>
+            <p class="mt-3"><a href="/peta">Lihat peta interaktif lengkap &rarr;</a></p>
+          </div>
+        </div>
+
+        <div class="col-lg-7">
+          <form id="contact-form" class="php-email-form">
+            <div class="row gy-4">
+              <div class="col-md-6">
+                <label for="name-field" class="pb-2">Nama Kamu</label>
+                <input type="text" name="name" id="name-field" class="form-control" required />
+              </div>
+              <div class="col-md-6">
+                <label for="email-field" class="pb-2">Email Kamu</label>
+                <input type="email" class="form-control" name="email" id="email-field" required />
+              </div>
+              <div class="col-md-12">
+                <label for="subject-field" class="pb-2">Subjek</label>
+                <input type="text" class="form-control" name="subject" id="subject-field" required />
+              </div>
+              <div class="col-md-12">
+                <label for="message-field" class="pb-2">Pesan</label>
+                <textarea class="form-control" name="message" rows="8" id="message-field" required></textarea>
+              </div>
+              <div class="col-md-12 text-center">
+                <div id="form-note" class="text-muted small mb-2"></div>
+                <button type="submit">Kirim Pesan</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline slot="scripts">
+    (async () => {
+      const { data } = await supabaseClient.from("profil").select("alamat").eq("id", 1).single();
+      document.getElementById("kontak-alamat").textContent = (data && data.alamat) || "";
+    })();
+
+    // Catatan: form ini TIDAK mengirim email secara otomatis karena website
+    // di-hosting statis (tanpa server PHP). Untuk mengaktifkan pengiriman
+    // sungguhan, sambungkan lewat layanan gratis seperti Formspree/Getform,
+    // atau arahkan pesan ke WhatsApp. Lihat README bagian "Form Kontak".
+    document.getElementById("contact-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      document.getElementById("form-note").textContent =
+        "Form ini belum tersambung ke layanan pengiriman pesan. Lihat README untuk cara mengaktifkannya.";
+    });
+  </script>
+</BaseLayout>

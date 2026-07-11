@@ -1,0 +1,95 @@
+/* ============================================================
+   CUSTOM OVERRIDES — Dusun Macanan
+   File ini dimuat SETELAH assets/css/main.css bawaan BizLand,
+   supaya file asli template tidak perlu diubah (gampang di-
+   update kalau suatu saat ada versi baru template-nya).
+   ============================================================ */
+
+:root {
+  --accent-color: #6b8f47;         /* hijau sawah, ganti dari biru bawaan */
+  --nav-hover-color: #6b8f47;
+  --nav-dropdown-hover-color: #6b8f47;
+}
+
+/* --- Status kosong/loading/error untuk konten yang di-fetch dari Supabase --- */
+.hidden { display: none !important; }
+.state-box {
+  border: 1px dashed #c9c2b3;
+  border-radius: 6px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  color: #8a8072;
+  grid-column: 1 / -1;
+}
+
+/* --- Kartu marker/kategori kecil (dipakai di halaman UMKM, Aktivitas) --- */
+.badge-kategori {
+  display: inline-block;
+  font-size: 12px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: rgba(107, 143, 71, 0.12);
+  color: var(--accent-color);
+  margin-bottom: 6px;
+}
+
+/* --- Admin panel: elemen yang tidak ada di template asli (form, tabel, modal) --- */
+.admin-tab-btn {
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.admin-tab-btn.active {
+  background: var(--accent-color);
+  color: #fff;
+  border-color: var(--accent-color);
+}
+.admin-list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+}
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 999;
+}
+.admin-modal-box {
+  background: #fff;
+  border-radius: 8px;
+  max-width: 520px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 24px;
+}
+.admin-field label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--heading-color);
+  margin-bottom: 4px;
+}
+.admin-field input,
+.admin-field select,
+.admin-field textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  margin-bottom: 14px;
+}

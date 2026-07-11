@@ -1,0 +1,73 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+<BaseLayout title="Profil & Sejarah" description="Sejarah dan struktur pemerintahan Dusun Macanan, Bligo, Magelang." activeNav="profil">
+
+  <section id="about" class="about section light-background">
+    <div class="container section-title" data-aos="fade-up">
+      <h2>Profil & Sejarah</h2>
+      <p><span>Mengenal</span> <span class="description-title">Dusun Macanan</span></p>
+    </div>
+
+    <div class="container">
+      <div class="row gy-3">
+        <div class="col-lg-5" data-aos="fade-up" data-aos-delay="100">
+          <img id="profil-image" src="https://placehold.co/800x900/6b8f47/ffffff?text=Foto+Dusun" alt="Dusun Macanan" class="img-fluid rounded" />
+        </div>
+        <div class="col-lg-7 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
+          <div class="about-content ps-0 ps-lg-3">
+            <p id="profil-alamat" class="fst-italic">Memuat alamat...</p>
+            <div id="profil-sejarah"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- /About Section -->
+
+  <section id="team" class="team section light-background">
+    <div class="container section-title" data-aos="fade-up">
+      <h2>Struktur Pemerintahan</h2>
+      <p><span>Perangkat</span> <span class="description-title">Dusun Macanan</span></p>
+    </div>
+    <div class="container">
+      <div id="perangkat-grid" class="row gy-4"></div>
+    </div>
+  </section><!-- /Team Section -->
+
+  <script is:inline slot="scripts">
+    (async () => {
+      const { data, error } = await supabaseClient.from("profil").select("*").eq("id", 1).single();
+      const sejarahEl = document.getElementById("profil-sejarah");
+      const alamatEl = document.getElementById("profil-alamat");
+      if (error || !data) {
+        showError(sejarahEl);
+        alamatEl.textContent = "";
+        return;
+      }
+      alamatEl.textContent = data.alamat || "";
+      if (data.hero_image_url) document.getElementById("profil-image").src = data.hero_image_url;
+      sejarahEl.innerHTML = (data.sejarah || "Sejarah dusun belum diisi.")
+        .split("\n").filter(Boolean).map(p => `<p>${escapeHtml(p)}</p>`).join("");
+    })();
+
+    (async () => {
+      const container = document.getElementById("perangkat-grid");
+      showLoading(container, "Memuat data perangkat dusun...");
+      const { data, error } = await supabaseClient.from("perangkat").select("*").order("urutan");
+      if (error) return showError(container);
+      if (!data || data.length === 0) return showEmpty(container, "Data perangkat dusun belum diisi.");
+      container.innerHTML = data.map(p => `
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="team-member">
+            <div class="member-img">
+              <img src="${p.foto_url || 'https://placehold.co/400x400/6b8f47/ffffff?text=Foto'}" class="img-fluid" alt="${escapeHtml(p.nama)}">
+            </div>
+            <div class="member-info">
+              <h4>${escapeHtml(p.nama)}</h4>
+              <span>${escapeHtml(p.jabatan)}</span>
+            </div>
+          </div>
+        </div>`).join("");
+    })();
+  </script>
+</BaseLayout>

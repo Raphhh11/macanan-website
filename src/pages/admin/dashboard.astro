@@ -1,0 +1,61 @@
+---
+---
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Dashboard Admin — Dusun Macanan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+  <link href="/assets/css/main.css" rel="stylesheet" />
+  <link href="/assets/css/custom.css" rel="stylesheet" />
+</head>
+<body style="background:#f5f9ff;">
+
+  <header style="background:#fff; border-bottom:1px solid #eee;">
+    <div class="container d-flex align-items-center justify-content-between py-3">
+      <h1 style="font-family:var(--heading-font); font-size:1.3rem; color:var(--heading-color); margin:0;">
+        Admin Panel — Dusun Macanan
+      </h1>
+      <div class="d-flex align-items-center gap-3">
+        <span id="user-email" class="text-muted small"></span>
+        <button id="logout-btn" class="btn btn-link text-danger p-0">Keluar</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container py-4">
+    <div id="tabs" class="d-flex flex-wrap gap-2 mb-4"></div>
+
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h2 id="table-title" style="font-family:var(--heading-font); font-size:1.4rem; color:var(--heading-color);"></h2>
+      <button id="add-btn" class="btn-get-started">+ Tambah</button>
+    </div>
+
+    <div id="list-container" class="d-flex flex-column gap-2"></div>
+  </main>
+
+  <!-- MODAL FORM -->
+  <div id="form-modal" class="admin-modal-overlay hidden">
+    <div class="admin-modal-box">
+      <h3 id="form-modal-title" style="font-family:var(--heading-font); margin-bottom:16px;"></h3>
+      <form id="form-modal-form">
+        <div id="form-fields"></div>
+        <div class="d-flex justify-content-end gap-2 mt-2">
+          <button type="button" id="form-cancel" class="btn btn-link text-muted">Batal</button>
+          <button type="submit" class="btn-get-started">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script is:inline src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script is:inline src="/assets/js/config.js"></script>
+  <script is:inline src="/assets/js/dusun.js"></script>
+  <script is:inline src="/assets/js/tables.config.js"></script>
+  <script is:inline src="/assets/js/admin.js"></script>
+</body>
+</html>

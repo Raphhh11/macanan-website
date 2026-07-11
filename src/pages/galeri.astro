@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+<BaseLayout title="Galeri" description="Dokumentasi foto fasilitas umum dan kegiatan warga Dusun Macanan." activeNav="galeri">
+
+  <section id="portfolio" class="portfolio section">
+    <div class="container section-title" data-aos="fade-up">
+      <h2>Galeri</h2>
+      <p><span>Dokumentasi</span> <span class="description-title">Dusun Macanan</span></p>
+    </div>
+    <div class="container">
+      <div id="galeri-grid" class="row gy-4"></div>
+    </div>
+  </section>
+
+  <script is:inline slot="scripts">
+    (async () => {
+      const container = document.getElementById("galeri-grid");
+      showLoading(container, "Memuat galeri foto...");
+      const { data, error } = await supabaseClient.from("galeri").select("*").order("created_at", { ascending: false });
+      if (error) return showError(container);
+      if (!data || data.length === 0) return showEmpty(container, "Belum ada foto yang diunggah.");
+
+      container.innerHTML = data.map(g => `
+        <div class="col-lg-4 col-md-6">
+          <a href="${g.foto_url}" class="glightbox portfolio-item" data-gallery="galeri-dusun" title="${escapeHtml(g.judul || '')}">
+            <img src="${g.foto_url}" class="img-fluid rounded" alt="${escapeHtml(g.judul || 'Foto Dusun Macanan')}" loading="lazy" />
+            <div class="portfolio-info">
+              <h4>${escapeHtml(g.judul || '')}</h4>
+              <p>${escapeHtml(g.kategori || '')}</p>
+            </div>
+          </a>
+        </div>`).join("");
+
+      // main.js sudah init GLightbox saat load; karena galeri ini dimuat belakangan (async), re-init manual:
+      if (window.GLightbox) GLightbox({ selector: ".glightbox" });
+    })();
+  </script>
+</BaseLayout>

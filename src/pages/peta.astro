@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+<BaseLayout title="Peta Interaktif" description="Peta interaktif Dusun Macanan: lokasi fasilitas, batas wilayah, dan rute perjalanan." activeNav="peta">
+
+  <Fragment slot="head">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen/dist/Control.FullScreen.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-measure@3.1.0/dist/leaflet-measure.css" />
+    <style>
+      #map { height: 640px; width: 100%; }
+      @media (max-width: 640px) { #map { height: 460px; } }
+    </style>
+  </Fragment>
+
+  <section id="peta" class="services section">
+    <div class="container section-title" data-aos="fade-up">
+      <h2>Peta Interaktif</h2>
+      <p><span>Lokasi & Rute</span> <span class="description-title">Dusun Macanan</span></p>
+    </div>
+
+    <div class="container">
+      <div class="d-flex flex-wrap gap-2 align-items-center mb-3 p-3" style="background:#fff;border-radius:8px;border:1px solid #eee;">
+        <input id="search-input" type="text" placeholder="Cari lokasi (nama)..." class="form-control" style="max-width:220px;" />
+        <select id="route-from" class="form-select" style="max-width:180px;"><option value="">Dari...</option></select>
+        <select id="route-to" class="form-select" style="max-width:180px;"><option value="">Ke...</option></select>
+        <button id="route-btn" class="btn-get-started">Cari Rute</button>
+        <button id="route-clear-btn" class="btn btn-link">Hapus Rute</button>
+        <label class="d-flex align-items-center gap-2 ms-auto">
+          <input type="checkbox" id="heatmap-toggle" /> Tampilkan Heatmap
+        </label>
+      </div>
+
+      <div id="map-status" class="hidden state-box mb-3"></div>
+      <div id="map" class="rounded" style="border:1px solid #eee;"></div>
+
+      <p class="text-muted small mt-3">
+        Peta dasar: OpenStreetMap / Esri / OpenTopoMap (gratis). Rute dihitung lewat server demo OSRM (gratis, publik).
+        Titik lokasi dan batas wilayah masih data contoh; perbarui lewat
+        <a href="/admin/login">admin panel</a> begitu data survei tersedia.
+      </p>
+    </div>
+  </section>
+
+  <Fragment slot="scripts">
+    <script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script is:inline src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script is:inline src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+    <script is:inline src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+    <script is:inline src="https://unpkg.com/leaflet.fullscreen/dist/Control.FullScreen.umd.js"></script>
+    <script is:inline src="https://unpkg.com/leaflet-measure@3.1.0/dist/leaflet-measure.js"></script>
+    <script is:inline src="/assets/js/peta.js"></script>
+  </Fragment>
+</BaseLayout>

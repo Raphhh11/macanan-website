@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+<BaseLayout title="Potensi & UMKM" description="Produk dan usaha UMKM unggulan warga Dusun Macanan, Magelang." activeNav="umkm">
+
+  <section id="services" class="services section">
+    <div class="container section-title" data-aos="fade-up">
+      <h2>Potensi & UMKM</h2>
+      <p><span>Produk Unggulan</span> <span class="description-title">Warga Dusun Macanan</span></p>
+    </div>
+
+    <div class="container">
+      <div id="umkm-grid" class="row gy-4"></div>
+    </div>
+  </section><!-- /Services Section -->
+
+  <script is:inline slot="scripts">
+    (async () => {
+      const container = document.getElementById("umkm-grid");
+      showLoading(container, "Memuat data UMKM...");
+      const { data, error } = await supabaseClient.from("umkm").select("*").order("created_at");
+      if (error) return showError(container);
+      if (!data || data.length === 0) return showEmpty(container, "Data UMKM belum diisi. Tambahkan lewat admin panel.");
+      container.innerHTML = data.map(u => `
+        <div class="col-lg-4 col-md-6">
+          <div class="service-item position-relative">
+            <img src="${u.foto_url || 'https://placehold.co/600x400/6b8f47/ffffff?text=UMKM'}"
+                 alt="${escapeHtml(u.nama_usaha)}" class="img-fluid rounded mb-3" />
+            <h3>${escapeHtml(u.nama_usaha)}</h3>
+            <p>${escapeHtml(u.deskripsi || "")}</p>
+            ${u.kontak ? `<p class="badge-kategori">Kontak: ${escapeHtml(u.kontak)}</p>` : ""}
+          </div>
+        </div>`).join("");
+    })();
+  </script>
+</BaseLayout>
