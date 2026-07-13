@@ -59,12 +59,19 @@ async function initMap() {
     }
   } catch (e) { /* pakai default kalau gagal */ }
 
-  map = L.map("map", { fullscreenControl: true }).setView(initialView.center, initialView.zoom);
+  map = L.map("map", { fullscreenControl: true, zoomControl: false }).setView(initialView.center, initialView.zoom);
+  L.control.zoom({ position: "topright" }).addTo(map);
 
   // 2. Base layer (semuanya gratis, tanpa API key)
+  // Voyager jadi default: lebih bersih & modern dibanding OSM klasik yang warnanya ramai
+  const voyager = L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
+    attribution: "&copy; OpenStreetMap contributors &copy; CARTO",
+    maxZoom: 20,
+  }).addTo(map);
+
   const osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "&copy; OpenStreetMap contributors",
-  }).addTo(map);
+  });
 
   const satelit = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
     attribution: "Tiles &copy; Esri",
@@ -75,9 +82,9 @@ async function initMap() {
   });
 
   L.control.layers(
-    { "Jalan (OSM)": osm, "Satelit": satelit, "Topografi": topo },
+    { "Bersih (default)": voyager, "Jalan (OSM)": osm, "Satelit": satelit, "Topografi": topo },
     {},
-    { collapsed: true }
+    { collapsed: true, position: "topright" }
   ).addTo(map);
 
   // 3. Kontrol tambahan
@@ -120,8 +127,8 @@ function addLegendControl() {
   const LegendControl = L.Control.extend({
     options: { position: "bottomright" },
     onAdd: function () {
-      const div = L.DomUtil.create("div", "leaflet-bar");
-      div.style.cssText = "background:white;padding:8px 10px;font-size:12px;line-height:1.6;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,0.3);";
+      const div = L.DomUtil.create("div", "leaflet-bar legend-box");
+      div.style.cssText = "background:white;padding:10px 12px;font-size:12px;line-height:1.7;";
       div.innerHTML = "<strong>Legenda</strong><br/>" + usedCategories.map(k => {
         const style = KATEGORI_STYLE[k] || KATEGORI_STYLE["Lainnya"];
         return `<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${style.color};margin-right:6px;"></span>${k}`;

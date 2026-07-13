@@ -10,11 +10,14 @@
   --nav-hover-color: #6b8f47;
   --nav-dropdown-hover-color: #6b8f47;
 
+  /* Ganti font bawaan template (Roboto/Open Sans/Montserrat) jadi Inter */
   --default-font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --heading-font: "Inter", sans-serif;
   --nav-font: "Inter", sans-serif;
 }
 
+/* main.css bawaan template pakai font-weight tebal ala Montserrat untuk
+   heading; Inter perlu sedikit disesuaikan biar tetap terlihat proporsional */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -101,4 +104,74 @@ h1, h2, h3, h4, h5, h6 {
   padding: 8px 12px;
   font-size: 14px;
   margin-bottom: 14px;
+}
+
+/* ============================================================
+   PETA INTERAKTIF — mempercantik tampilan default Leaflet
+   ============================================================ */
+
+#map {
+  box-shadow: 0 4px 24px rgba(43, 58, 31, 0.12);
+}
+
+/* Popup: rounded card, bayangan lembut, sesuai warna tema */
+.leaflet-popup-content-wrapper {
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+.leaflet-popup-content {
+  margin: 14px 16px;
+  line-height: 1.5;
+}
+.leaflet-popup-content img {
+  border-radius: 6px;
+}
+.leaflet-popup-tip {
+  box-shadow: none;
+}
+
+/* Kontrol (zoom, layer switcher, ukur, fullscreen): rounded + shadow konsisten */
+.leaflet-bar,
+.leaflet-control-layers,
+.leaflet-control-measure {
+  border-radius: 8px !important;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.18) !important;
+  border: none !important;
+}
+.leaflet-bar a {
+  border-radius: 0 !important;
+}
+
+/* Marker cluster: samakan warna dengan aksen tema */
+.marker-cluster-small div, .marker-cluster-medium div, .marker-cluster-large div {
+  background-color: rgba(107, 143, 71, 0.7);
+  color: #fff;
+  font-weight: 600;
+}
+.marker-cluster-small, .marker-cluster-medium, .marker-cluster-large {
+  background-color: rgba(107, 143, 71, 0.35);
+}
+
+/* Legenda custom (dibuat lewat L.Control di peta.js) */
+.leaflet-control.legend-box {
+  border-radius: 8px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.18);
+}
+
+/* Toolbar pencarian & rute di atas peta */
+.map-toolbar {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(43, 58, 31, 0.08);
+  border: 1px solid rgba(107, 143, 71, 0.15);
+}
+.map-toolbar input.form-control,
+.map-toolbar select.form-select {
+  border-radius: 8px;
+}
+.map-toolbar input.form-control:focus,
+.map-toolbar select.form-select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(107, 143, 71, 0.15);
 }
