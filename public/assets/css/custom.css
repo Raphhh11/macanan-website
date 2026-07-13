@@ -9,6 +9,15 @@
   --accent-color: #6b8f47;         /* hijau sawah, ganti dari biru bawaan */
   --nav-hover-color: #6b8f47;
   --nav-dropdown-hover-color: #6b8f47;
+
+  --default-font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --heading-font: "Inter", sans-serif;
+  --nav-font: "Inter", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 /* --- Status kosong/loading/error untuk konten yang di-fetch dari Supabase --- */
