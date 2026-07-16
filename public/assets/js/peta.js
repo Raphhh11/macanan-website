@@ -14,7 +14,7 @@ const KATEGORI_STYLE = {
   "Lainnya":        { color: "#7f8c8d", emoji: "📍" },
 };
 
-const DEFAULT_CENTER = [-7.4034, 110.1553]; // fallback kalau data profil belum ada
+const DEFAULT_CENTER = [-7.6560, 110.2808]; // fallback kalau data profil belum ada (kec. Ngluwar, Magelang)
 const DEFAULT_ZOOM = 15;
 
 let map;

@@ -6,9 +6,9 @@
    ============================================================ */
 
 :root {
-  --accent-color: #6b8f47;         /* hijau sawah, ganti dari biru bawaan */
-  --nav-hover-color: #6b8f47;
-  --nav-dropdown-hover-color: #6b8f47;
+  --accent-color: #2f8f5b;         /* hijau emerald segar, ganti dari olive drab sebelumnya */
+  --nav-hover-color: #2f8f5b;
+  --nav-dropdown-hover-color: #2f8f5b;
 
   /* Ganti font bawaan template (Roboto/Open Sans/Montserrat) jadi Inter */
   --default-font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -21,6 +21,26 @@
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: -0.01em;
+}
+
+/* Ganti foto latar Hero (Beranda) + overlay gelap gradasi (bukan wash putih
+   bawaan template) supaya foto tetap terlihat hidup dan teks tetap kebaca */
+.hero {
+  background: url("https://images.unsplash.com/photo-1531662439848-a7ed93c51468?fm=jpg&q=80&w=1920&auto=format&fit=crop") center center;
+  background-size: cover;
+}
+.hero:before {
+  background: linear-gradient(180deg, rgba(10,20,10,0.25) 0%, rgba(8,18,8,0.55) 60%, rgba(6,14,6,0.75) 100%) !important;
+}
+.hero h1, .hero p {
+  color: #ffffff !important;
+}
+.hero h1 span {
+  color: #f2d98a !important; /* highlight emas hangat, kontras di atas foto hijau */
+}
+.hero .btn-watch-video,
+.hero .btn-watch-video:hover {
+  color: #ffffff !important;
 }
 
 /* --- Status kosong/loading/error untuk konten yang di-fetch dari Supabase --- */
@@ -145,12 +165,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Marker cluster: samakan warna dengan aksen tema */
 .marker-cluster-small div, .marker-cluster-medium div, .marker-cluster-large div {
-  background-color: rgba(107, 143, 71, 0.7);
+  background-color: rgba(47, 143, 91, 0.7);
   color: #fff;
   font-weight: 600;
 }
 .marker-cluster-small, .marker-cluster-medium, .marker-cluster-large {
-  background-color: rgba(107, 143, 71, 0.35);
+  background-color: rgba(47, 143, 91, 0.35);
 }
 
 /* Legenda custom (dibuat lewat L.Control di peta.js) */
@@ -173,5 +193,5 @@ h1, h2, h3, h4, h5, h6 {
 .map-toolbar input.form-control:focus,
 .map-toolbar select.form-select:focus {
   border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(107, 143, 71, 0.15);
+  box-shadow: 0 0 0 3px rgba(47, 143, 91, 0.15);
 }

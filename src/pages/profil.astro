@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
-<BaseLayout title="Profil & Sejarah" description="Sejarah dan struktur pemerintahan Dusun Macanan, Bligo, Magelang." activeNav="profil">
+<BaseLayout title="Profil & Sejarah" description="Sejarah dan struktur pemerintahan Dusun Macanan, Bligo, Ngluwar, Magelang." activeNav="profil">
 
   <section id="about" class="about section light-background">
     <div class="container section-title" data-aos="fade-up">
@@ -12,7 +12,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <div class="container">
       <div class="row gy-3">
         <div class="col-lg-5" data-aos="fade-up" data-aos-delay="100">
-          <img id="profil-image" src="https://placehold.co/800x900/6b8f47/ffffff?text=Foto+Dusun" alt="Dusun Macanan" class="img-fluid rounded" />
+          <img id="profil-image" src="https://placehold.co/800x900/2f8f5b/ffffff?text=Foto+Dusun" alt="Dusun Macanan" class="img-fluid rounded" />
         </div>
         <div class="col-lg-7 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
           <div class="about-content ps-0 ps-lg-3">
@@ -29,6 +29,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <h2>Struktur Pemerintahan</h2>
       <p><span>Perangkat</span> <span class="description-title">Dusun Macanan</span></p>
     </div>
+
+    <div class="container mb-5" data-aos="fade-up">
+      <h3 class="text-center mb-4" style="font-size:1.2rem;">Bagan Struktur Organisasi Pemerintahan Desa</h3>
+      <div class="text-center">
+        <img id="struktur-image" src="/assets/img/struktur-organisasi.png" alt="Bagan Struktur Organisasi Pemerintahan Desa"
+             class="img-fluid rounded" style="max-width:820px; border:1px solid #eee; background:#fff; padding:16px;" />
+      </div>
+    </div>
+
     <div class="container">
       <div id="perangkat-grid" class="row gy-4"></div>
     </div>
@@ -60,7 +69,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
           <div class="team-member">
             <div class="member-img">
-              <img src="${p.foto_url || 'https://placehold.co/400x400/6b8f47/ffffff?text=Foto'}" class="img-fluid" alt="${escapeHtml(p.nama)}">
+              <img src="${p.foto_url || 'https://placehold.co/400x400/2f8f5b/ffffff?text=Foto'}" class="img-fluid" alt="${escapeHtml(p.nama)}">
             </div>
             <div class="member-info">
               <h4>${escapeHtml(p.nama)}</h4>

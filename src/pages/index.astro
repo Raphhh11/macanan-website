@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
-<BaseLayout title="Beranda" description="Website resmi Dusun Macanan, Bligo, Magelang." activeNav="beranda">
+<BaseLayout title="Beranda" description="Website resmi Dusun Macanan, Bligo, Ngluwar, Magelang." activeNav="beranda">
 
   <!-- Hero Section -->
   <section id="hero" class="hero section light-background">
@@ -113,7 +113,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       if (error) return showError(container);
       if (!data || data.length === 0) return showEmpty(container, "Belum ada aktivitas yang dipublikasikan.");
       container.innerHTML = data.map(item => {
-        const foto = splitFotoUrls(item.foto_urls)[0] || "https://placehold.co/600x400/6b8f47/ffffff?text=Aktivitas";
+        const foto = splitFotoUrls(item.foto_urls)[0] || "https://placehold.co/600x400/2f8f5b/ffffff?text=Aktivitas";
         return `
         <div class="col-lg-4 col-md-6">
           <a href="/artikel?slug=${encodeURIComponent(item.slug)}" class="text-decoration-none">

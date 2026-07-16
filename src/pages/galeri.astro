@@ -8,29 +8,51 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <h2>Galeri</h2>
       <p><span>Dokumentasi</span> <span class="description-title">Dusun Macanan</span></p>
     </div>
+
     <div class="container">
-      <div id="galeri-grid" class="row gy-4"></div>
+      <h3 class="mb-4" style="font-size:1.3rem;" data-aos="fade-up">Fasilitas Umum</h3>
+      <div id="galeri-fasilitas" class="row gy-4 mb-5"></div>
+
+      <h3 class="mb-4" style="font-size:1.3rem;" data-aos="fade-up">Kegiatan Warga</h3>
+      <div id="galeri-kegiatan" class="row gy-4"></div>
     </div>
   </section>
 
   <script is:inline slot="scripts">
-    (async () => {
-      const container = document.getElementById("galeri-grid");
-      showLoading(container, "Memuat galeri foto...");
-      const { data, error } = await supabaseClient.from("galeri").select("*").order("created_at", { ascending: false });
-      if (error) return showError(container);
-      if (!data || data.length === 0) return showEmpty(container, "Belum ada foto yang diunggah.");
-
-      container.innerHTML = data.map(g => `
+    function renderGaleriGrid(container, rows) {
+      if (!rows || rows.length === 0) {
+        showEmpty(container, "Belum ada foto di kategori ini.");
+        return;
+      }
+      container.innerHTML = rows.map(g => `
         <div class="col-lg-4 col-md-6">
           <a href="${g.foto_url}" class="glightbox portfolio-item" data-gallery="galeri-dusun" title="${escapeHtml(g.judul || '')}">
             <img src="${g.foto_url}" class="img-fluid rounded" alt="${escapeHtml(g.judul || 'Foto Dusun Macanan')}" loading="lazy" />
             <div class="portfolio-info">
               <h4>${escapeHtml(g.judul || '')}</h4>
-              <p>${escapeHtml(g.kategori || '')}</p>
             </div>
           </a>
         </div>`).join("");
+    }
+
+    (async () => {
+      const fasilitasEl = document.getElementById("galeri-fasilitas");
+      const kegiatanEl = document.getElementById("galeri-kegiatan");
+      showLoading(fasilitasEl, "Memuat galeri foto...");
+      showLoading(kegiatanEl, "Memuat galeri foto...");
+
+      const { data, error } = await supabaseClient.from("galeri").select("*").order("created_at", { ascending: false });
+      if (error) {
+        showError(fasilitasEl);
+        showError(kegiatanEl);
+        return;
+      }
+
+      const fasilitas = (data || []).filter(g => g.kategori === "Fasilitas");
+      const kegiatan = (data || []).filter(g => g.kategori === "Kegiatan");
+
+      renderGaleriGrid(fasilitasEl, fasilitas);
+      renderGaleriGrid(kegiatanEl, kegiatan);
 
       // main.js sudah init GLightbox saat load; karena galeri ini dimuat belakangan (async), re-init manual:
       if (window.GLightbox) GLightbox({ selector: ".glightbox" });

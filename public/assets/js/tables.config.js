@@ -17,6 +17,7 @@ const TABLE_CONFIGS = {
       { name: "peta_query", label: "Lokasi untuk Peta (contoh: Dusun Macanan, Bligo, Magelang)", type: "text" },
       { name: "pusat_lat", label: "Latitude pusat peta interaktif (contoh: -7.4034)", type: "number" },
       { name: "pusat_lng", label: "Longitude pusat peta interaktif (contoh: 110.1553)", type: "number" },
+      { name: "struktur_url", label: "URL Gambar Bagan Struktur Organisasi Pemerintahan", type: "text" },
     ],
   },
   perangkat: {
