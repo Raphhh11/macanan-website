@@ -31,16 +31,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     </div>
   </section><!-- /Hero Section -->
 
-  <script is:inline>
-    new Swiper(".hero-swiper", {
-      effect: "slide",
-      speed: 900,
-      loop: true,
-      autoplay: { delay: 4000, disableOnInteraction: false },
-      pagination: { el: ".hero-pagination", type: "progressbar" },
-    });
-  </script>
-
   <!-- Featured / Quick Links Section -->
   <section id="featured-services" class="featured-services section">
     <div class="container">
@@ -102,6 +92,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   </section><!-- /Portfolio Section -->
 
   <script is:inline slot="scripts">
+    new Swiper(".hero-swiper", {
+      effect: "slide",
+      speed: 900,
+      loop: true,
+      autoplay: { delay: 4000, disableOnInteraction: false },
+      pagination: { el: ".hero-pagination", type: "progressbar" },
+    });
+
     (async () => {
       const { data, error } = await supabaseClient.from("profil").select("*").eq("id", 1).single();
       if (!error && data) {
