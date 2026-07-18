@@ -5,6 +5,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
   <!-- Hero Section -->
   <section id="hero" class="hero section light-background">
+    <div class="swiper hero-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1531662439848-a7ed93c51468?fm=jpg&q=80&w=1920&auto=format&fit=crop');"></div>
+        <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1555400038-63f5ba517a47?fm=jpg&q=80&w=1920&auto=format&fit=crop');"></div>
+        <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1583078450666-9175ee1991df?fm=jpg&q=80&w=1920&auto=format&fit=crop');"></div>
+      </div>
+    </div>
+
     <div class="container">
       <div class="row gy-4">
         <div class="col-lg-7 d-flex flex-column justify-content-center" data-aos="zoom-out">
@@ -17,7 +25,21 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         </div>
       </div>
     </div>
+
+    <div class="hero-progress">
+      <div class="hero-pagination"></div>
+    </div>
   </section><!-- /Hero Section -->
+
+  <script is:inline>
+    new Swiper(".hero-swiper", {
+      effect: "slide",
+      speed: 900,
+      loop: true,
+      autoplay: { delay: 4000, disableOnInteraction: false },
+      pagination: { el: ".hero-pagination", type: "progressbar" },
+    });
+  </script>
 
   <!-- Featured / Quick Links Section -->
   <section id="featured-services" class="featured-services section">

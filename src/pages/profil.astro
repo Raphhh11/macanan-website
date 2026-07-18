@@ -64,7 +64,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       showLoading(container, "Memuat data perangkat dusun...");
       const { data, error } = await supabaseClient.from("perangkat").select("*").order("urutan");
       if (error) return showError(container);
-      if (!data || data.length === 0) return showEmpty(container, "Data perangkat dusun belum diisi.");
+      
       container.innerHTML = data.map(p => `
         <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
           <div class="team-member">

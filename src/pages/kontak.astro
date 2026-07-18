@@ -67,14 +67,42 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       document.getElementById("kontak-alamat").textContent = (data && data.alamat) || "";
     })();
 
-    // Catatan: form ini TIDAK mengirim email secara otomatis karena website
-    // di-hosting statis (tanpa server PHP). Untuk mengaktifkan pengiriman
-    // sungguhan, sambungkan lewat layanan gratis seperti Formspree/Getform,
-    // atau arahkan pesan ke WhatsApp. Lihat README bagian "Form Kontak".
-    document.getElementById("contact-form").addEventListener("submit", (e) => {
+    // ============================================================
+    // FORM KONTAK — dikirim lewat Formspree (gratis, tanpa perlu server sendiri)
+    // Ganti FORMSPREE_ENDPOINT di bawah dengan endpoint asli kamu:
+    // 1. Daftar gratis di https://formspree.io
+    // 2. Buat form baru, salin endpoint-nya (formatnya: https://formspree.io/f/xxxxxxxx)
+    // 3. Tempel endpoint itu menggantikan nilai di bawah ini
+    // ============================================================
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/mykrwzen";
+
+    document.getElementById("contact-form").addEventListener("submit", async (e) => {
       e.preventDefault();
-      document.getElementById("form-note").textContent =
-        "Form ini belum tersambung ke layanan pengiriman pesan. Lihat README untuk cara mengaktifkannya.";
+      const form = e.target;
+      const noteEl = document.getElementById("form-note");
+      const submitBtn = form.querySelector("button[type=submit]");
+
+      noteEl.textContent = "Mengirim...";
+      submitBtn.disabled = true;
+
+      try {
+        const response = await fetch(FORMSPREE_ENDPOINT, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: new FormData(form),
+        });
+
+        if (response.ok) {
+          noteEl.textContent = "Pesan berhasil dikirim. Terima kasih!";
+          form.reset();
+        } else {
+          noteEl.textContent = "Gagal mengirim pesan. Coba lagi beberapa saat lagi.";
+        }
+      } catch (err) {
+        noteEl.textContent = "Gagal mengirim pesan. Periksa koneksi internet kamu.";
+      } finally {
+        submitBtn.disabled = false;
+      }
     });
   </script>
 </BaseLayout>
