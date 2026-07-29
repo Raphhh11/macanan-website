@@ -3,6 +3,10 @@ import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
   output: "static",
-  site: "https://macanan-website.vercel.app", // GANTI dengan domain vercel.app kamu yang sebenarnya
-  integrations: [sitemap()],
+  site: "https://macanan-website.vercel.app",
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes("/admin/"),
+    }),
+  ],
 });
